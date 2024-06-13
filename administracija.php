@@ -5,7 +5,6 @@ include 'connect.php';
 // Putanja do direktorija sa slikama 
 define('UPLPATH', 'img/'); 
 
-// Initialize variables
 $uspjesnaPrijava = false;
 $admin = false;
 $msg = '';
@@ -73,7 +72,6 @@ if (isset($_POST['prijava'])) {
     } 
 }
 
-// Display content based on login status
 if ((isset($_SESSION['username']) && $_SESSION['level'] == 1)) { 
     // Pokaži stranicu ukoliko je korisnik uspješno prijavljen i administrator je 
     $query = "SELECT * FROM vijesti"; 
