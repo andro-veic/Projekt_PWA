@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>L'OBS - Immobilier</title>
+</head>
+<body>
+    <header>
+    <h1>L'OBS</h1>
+        <nav class="navbar main_nav " role="navigation"> 
+	    <ul class="main nav navbar-nav"> 
+	        <li> 
+		        <a href="index.php" class="">Početna</a> 
+	        </li> 
+	        <li> 
+		        <a href="kategorija.php?id=sport" class="">Sport</a> 
+	        </li> 
+	        <li>
+		        <a href="kategorija.php?id=kultura" class="">Kultura</a> 
+	        </li> 
+	        <li> 
+		        <a href="administracija.php" class="">Administracija</a> 
+	        </li> 
+	    </ul> 
+        </nav>
+    </header>
+    <main>
+        <form enctype="multipart/form-data" action="insert.php" method="POST"> 
+            <div class="form-item"> 
+                <span id="porukaTitle" class="bojaPoruke"></span> 
+                <label for="title">Naslov vijesti</label> 
+                <div class="form-field"> 
+                    <input type="text" name="title" id="title" class="form-field-textual"> 
+                </div> 
+            </div> 
+            <div class="form-item"> 
+                <span id="porukaAbout" class="bojaPoruke"></span> 
+                <label for="about">Kratki sadržaj vijesti (do 50 znakova)</label> 
+                <div class="form-field"> 
+                    <textarea name="about" id="about" cols="30" rows="10" class="form-field-textual"></textarea> 
+                </div> 
+            </div> 
+            <div class="form-item"> 
+                <span id="porukaContent" class="bojaPoruke"></span> 
+                <label for="content">Sadržaj vijesti</label> 
+                <div class="form-field"> 
+                    <textarea name="content" id="content" cols="30" rows="10" class="form-field-textual"></textarea> 
+                </div> 
+            </div> 
+            <div class="form-item"> 
+                <span id="porukaSlika" class="bojaPoruke"></span> 
+                <label for="pphoto">Slika: </label> 
+                <div class="form-field"> 
+                    <input type="file" class="input-text" id="pphoto" name="pphoto"/> 
+                </div> 
+            </div> 
+            <div class="form-item"> 
+                <span id="porukaKategorija" class="bojaPoruke"></span> 
+                <label for="category">Kategorija vijesti</label> 
+                <div class="form-field"> 
+                    <select name="category" id="category" class="form-field-textual"> 
+                        <option value="" disabled selected>Odabir kategorije</option>
+                        <option value="sport">Sport</option> 
+                        <option value="kultura">Kultura</option> 
+                    </select> 
+                </div> 
+            </div> 
+            <div class="form-item"> 
+                <label>Spremiti u arhivu: 
+                    <div class="form-field"> 
+                        <input type="checkbox" name="archive" id="archive"> 
+                    </div> 
+                </label> 
+            </div> 
+            <div class="form-item"> 
+                <button type="reset" value="Poništi">Poništi</button> 
+                <button type="submit" value="Prihvati" id="slanje">Prihvati</button> 
+            </div> 
+        </form>
+    </main>
+    <footer>
+        © L'Obs - Les marques ou contenus du site nouvelobs.com sont soumis à la protection de la propriété intellectuelle
+    </footer>
+
+    <script>
+        document.getElementById("slanje").onclick = function(event) {
+        var slanje_forme = true;
+    
+        var poljeNaslov = document.getElementById("title");
+        var naslov = document.getElementById("title").value;
+        if (naslov.length == 0) {
+            slanje_forme = false;
+            poljeNaslov.style.border = "1px dashed red";
+            document.getElementById("porukaTitle").innerHTML = "<span class='bojaPoruke'>Naslov vijesti ne smije biti prazan.</span><br>";
+        }
+        else if (naslov.length < 5 || naslov.length > 30) {
+            slanje_forme = false;
+            poljeNaslov.style.border = "1px dashed red";
+            document.getElementById("porukaTitle").innerHTML = "<span class='bojaPoruke'>Naslov mora imati između 5 i 30 znakova.</span><br>";
+        }
+    
+        var poljeSazetak = document.getElementById("about");
+        var sazetak = document.getElementById("about").value;
+        if (sazetak.length == 0) {
+            slanje_forme = false;
+            poljeSazetak.style.border = "1px dashed red";
+            document.getElementById("porukaAbout").innerHTML = "<span class='bojaPoruke'>Kratki sadržaj vijesti ne smije biti prazan.</span><br>";
+        }
+        else if (sazetak.length < 10 || sazetak.length > 100) {
+            slanje_forme = false;
+            poljeSazetak.style.border = "1px dashed red";
+            document.getElementById("porukaAbout").innerHTML = "<span class='bojaPoruke'>Kratki sadržaj vijesti treba imati između 10 i 100 znakova.</span><br>";
+        }
+
+        var poljeTekst = document.getElementById("content");
+        var tekst = document.getElementById("content").value;
+        if (tekst.length === 0) {
+            slanje_forme = false;
+            poljeTekst.style.border = "1px dashed red";
+            document.getElementById("porukaContent").innerHTML = "<span class='bojaPoruke'>Sadržaj vijesti ne smije biti prazan.</span><br>";
+        }
+
+        var poljeSlika = document.getElementById("pphoto");
+        var slika = document.getElementById("pphoto").value;
+        if (slika.length == 0) {
+            slanje_forme = false;
+            poljeSlika.style.border = "1px dashed red";
+            document.getElementById("porukaSlika").innerHTML = "<span class='bojaPoruke'>Slika mora biti poslana.</span><br>";
+        }
+
+        var poljeKategorija = document.getElementById("category");
+        var kategorija = document.getElementById("category").value;
+        if (kategorija.length == 0) {
+            slanje_forme = false;
+            poljeKategorija.style.border = "1px dashed red";
+            document.getElementById("porukaKategorija").innerHTML = "<span class='bojaPoruke'>Kategorija mora biti odabrana.</span><br>";
+        }
+    
+        if (slanje_forme != true) {
+            event.preventDefault();
+        }
+    
+    }
+      </script>
+</body>
+</html>
