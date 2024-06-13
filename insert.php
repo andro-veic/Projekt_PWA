@@ -4,7 +4,6 @@ include 'connect.php';
 define('UPLPATH', 'img/'); 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    // Check if the keys exist before accessing them
     $picture = isset($_FILES['pphoto']) ? $_FILES['pphoto']['name'] : '';
     $title = isset($_POST['title']) ? $_POST['title'] : '';
     $about = isset($_POST['about']) ? $_POST['about'] : '';
@@ -12,7 +11,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $category = isset($_POST['category']) ? $_POST['category'] : '';
     $date = date('d.m.Y.');
 
-    // Check if the checkbox is checked
     $archive = isset($_POST['archive']) ? 1 : 0;
 
     if (!empty($picture)) {
